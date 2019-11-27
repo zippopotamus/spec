@@ -10,7 +10,7 @@ lint-actions: install-deps
 	node_modules/.bin/yamllint .github/workflows/*
 
 lint-specs: install-deps
-	node_modules/.bin/swagger-cli validate v1/api.yaml
+	node_modules/.bin/swagger-cli validate v1/openapi.yaml
 
 .make-deps:
 	npm install yaml-lint && npm install
