@@ -7,7 +7,7 @@ clean:
 install-deps: .make-deps
 
 lint-actions: install-deps
-	yamllint .github/workflows/*
+	node_modules/.bin/yamllint .github/workflows/*
 
 lint-specs: install-deps
 	node_modules/.bin/swagger-cli validate v1/api.yaml
