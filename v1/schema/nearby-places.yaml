@@ -1,0 +1,23 @@
+type: object
+properties:
+  near longitude:
+    type: number
+    format: float
+  nearby:
+    type: array
+    items:
+      properties:
+        distance:
+          type: number
+          format: float
+        place name:
+          type: string
+        post code:
+          type: string
+        state:
+          type: string
+        state abbreviation:
+          type: string
+  near latitude:
+    type: number
+    format: float

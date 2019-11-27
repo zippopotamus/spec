@@ -1,0 +1,30 @@
+type: object
+properties:
+  post code:
+    type: string
+    example: "84321"
+  country:
+    type: string
+    example: "United States"
+  country abbreviation:
+    type: string
+    example: "US"
+  places:
+    type: array
+    items:
+      properties:
+        place name:
+          type: string
+          example: Logan
+        longitude:
+          type: string
+          example: "-111.8226"
+        state:
+          type: string
+          example: Utah
+        state abbreviation:
+          type: string
+          example: UT
+        latitude:
+          type: string
+          example: "41.747"

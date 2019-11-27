@@ -1,0 +1,24 @@
+type: object
+properties:
+  country abbreviation:
+    type: string
+  places:
+    type: array
+    items:
+      properties:
+        place name:
+          type: string
+        longitude:
+          type: string
+        post code:
+          type: string
+        latitude:
+          type: string
+  country:
+    type: string
+  place name:
+    type: string
+  state:
+    type: string
+  state abbreviation:
+    type: string

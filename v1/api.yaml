@@ -1,0 +1,108 @@
+openapi: 3.0.0
+info:
+  version: "1.0"
+  title: Zippopotam.us API
+components:
+  parameters:
+    country:
+      name: country
+      in: path
+      description: ISO 3166-1 Alpha-2 country code
+      required: true
+      schema:
+        type: string
+      example: US
+    postalCode:
+      name: postalcode
+      in: path
+      description: Postal code to query place
+      required: true
+      schema:
+        type: string
+      example: "84321"
+    state:
+      name: state
+      in: path
+      description: Two letter state/province abbreviation
+      required: true
+      schema:
+        type: string
+      example: "UT"
+
+paths:
+  "/{country}/{postalcode}":
+    get:
+      summary: |
+        Places by postal code
+      description: |
+        Look up places by postal code and country.
+
+        > Note: This endpoint will return multiple places where applicable!
+
+        In the United States, the place name returned will likely be whatever USPS says is the "Recommended City Name" for that postal code.
+        This often surprises folks, as they may be used to using the name of the city the address is located in. For example, `84341` returns "Logan"
+        as its place name, but folks in North Logan also use this same postal code.
+
+        You can verify this by using the [USPS tool](https://tools.usps.com/zip-code-lookup.htm?citybyzipcode) to lookup a zip code, and see the "Recommended City Name"
+        alongside "Other City Names Recognized".
+      parameters:
+        - $ref: "#/components/parameters/country"
+        - $ref: "#/components/parameters/postalCode"
+      responses:
+        200:
+          description: Place located successfully for postalcode in country
+          content:
+            application/json:
+              schema:
+                $ref: schema/postal-code.yaml
+        404:
+          description: No place found for postalcode in country
+  "/{country}/{state}/{place}":
+    get:
+      summary: |
+        Places by name
+      description: |
+        Look up postal codes by the name of place.
+
+        In the United States, this endpoint will not return any results if there aren't any zip codes associated with the place name. This is a common occurrence in locations
+        where the United States Postal Service services multiple places through the same post office. 
+      parameters:
+        - $ref: "#/components/parameters/country"
+        - $ref: "#/components/parameters/state"
+        - name: place
+          in: path
+          description: Name of place (city, town, etc.)
+          required: true
+          schema:
+            type: string
+          example: Logan
+      responses:
+        200:
+          description: One or more places located successfully
+          content:
+            application/json:
+              schema:
+                $ref: schema/places.yaml
+        404:
+          description: No places found
+  "/nearby/{country}/{postalcode}":
+    get:
+      summary: |
+        Nearby places by postal code and country
+
+        Provided `postalCode` can be found in `country`, this endpoint returns other postal codes and their associated places. Like the other endpoints, the places returned are only going to be places that have an associated postal code.
+
+        This endpoint is limited to getting the nearest 11 places.
+
+      parameters:
+        - $ref: "#/components/parameters/country"
+        - $ref: "#/components/parameters/postalCode"
+      responses:
+        200:
+          description: One or more places located successfully
+          content:
+            application/json:
+              schema:
+                $ref: schema/nearby-places.yaml
+        404:
+          description: No places found
