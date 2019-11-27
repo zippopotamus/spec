@@ -60,7 +60,7 @@ paths:
   "/{country}/{state}/{place}":
     get:
       summary: |
-        Places by name
+        Postal codes by place
       description: |
         Look up postal codes by the name of place.
 
@@ -88,6 +88,8 @@ paths:
   "/nearby/{country}/{postalcode}":
     get:
       summary: |
+        Places near postal code
+      description: |
         Nearby places by postal code and country
 
         Provided `postalCode` can be found in `country`, this endpoint returns other postal codes and their associated places. Like the other endpoints, the places returned are only going to be places that have an associated postal code.
