@@ -16,5 +16,11 @@ lint-specs: install-deps
 	npm install yaml-lint && npm install
 	touch .make-deps
 
+trigger-docs-build:
+ifndef HOOKURL
+	$(error HOOKURL must be defined!)
+endif
+	curl -X POST -d {} ${HOOKURL}
 
-.PHONY: install-deps lint-actions lint-specs
+
+.PHONY: install-deps lint-actions lint-specs trigger-docs-build

@@ -1,0 +1,16 @@
+name: Trigger docs build & deploy
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'v1/**'
+
+jobs:
+  
+  build-and-deploy-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and Deploy docs.zippopotam.us
+        run: make trigger-docs-build HOOKURL=${{ secrets.NETLIFY_TRIGGER_URL }}
